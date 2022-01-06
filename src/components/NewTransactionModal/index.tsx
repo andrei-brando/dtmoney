@@ -25,15 +25,25 @@ export function NewTransactionModal({
   const handleSetTypeDeposit = (): void => setType('deposit');
   const handleSetTypeWithdraw = (): void => setType('withdraw');
 
-  function handleCreateNewTransaction(event: FormEvent): void {
+  const handleSetDefaultStates = (): void => {
+    setTitle('');
+    setAmount(0);
+    setCategory('');
+    setType('deposit');
+  };
+
+  async function handleCreateNewTransaction(event: FormEvent): Promise<void> {
     event.preventDefault();
 
-    createTransaction({
+    await createTransaction({
       title,
       amount,
       category,
       type,
     });
+
+    handleSetDefaultStates();
+    onRequestClose();
   }
 
   return (
